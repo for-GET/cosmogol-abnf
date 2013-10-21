@@ -1,0 +1,72 @@
+state-machine = 1*(statement / (*comment-wsp))
+
+statement = (declaration / transition / assignment)
+            *comment-wsp ";" *comment-wsp
+
+colon = *comment-wsp ":" *comment-wsp
+comma = *comment-wsp "," *comment-wsp
+equal = *comment-wsp "=" *comment-wsp
+arrow = *comment-wsp "->" *comment-wsp
+
+declaration = names colon value
+; ALTERNATIVE: indicate the possible values in the grammar:
+; declaration = names colon type
+; type = "state" / "message" / "action"
+
+assignment = name equal value
+
+names = name *(comma name)
+
+name = quoted-name / regular-identifier
+
+quoted-name = DQUOTE 1*(identifier-chars) DQUOTE
+
+; TODO: this grammar allows identifiers like foo----bar
+; (several dashes). Do we really want it?
+regular-identifier =
+            ALPHA /
+            (ALPHA *(ALPHA / DIGIT / "-") (ALPHA / DIGIT))
+
+transition = current-states colon
+             messages arrow next-state
+             [colon action]
+
+; ALTERNATIVE : some people prefer to put the message first:
+;transition = message colon
+;             current-state arrow next-state
+;             [colon action]
+
+; ALTERNATIVE: some people prefer to see the current-state and
+; the message grouped together:
+;transition = left-paren current-state comma message right-paren
+;             arrow next-state
+;             [colon action]
+
+; ALTERNATIVE: allow some grouping, for instance:
+;   Signal1:
+;     IDLE -> BUSY:
+;       connectSubscriber;
+;     CONNECTING -> DISCONNECTING:
+;       disconnectSubscriber
+; # Henk-Jan van Tuyl <hjgtuyl@chello.nl>
+
+; ALTERNATIVE: allow more than one action, comma-separated
+;  Marc Petit-Huguenin <marc@8x8.com>
+
+current-states = name *(comma name)
+messages = name *(comma name)
+next-state = name
+action = name
+
+value = regular-identifier / quoted-name
+
+identifier-chars = ALPHA / DIGIT /
+                   "-" / "_" / "'" / "," / ";" / SP
+                  ; All letters and digits and
+                  ; some (a bit arbitrary) chars
+
+comment        =  "#" *(WSP / VCHAR) CRLF
+
+comment-nl           =  comment / CRLF
+
+comment-wsp          =  *(WSP / comment-nl)
