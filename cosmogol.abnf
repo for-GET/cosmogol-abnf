@@ -57,7 +57,8 @@ action = name
 value = regular-identifier / quoted-name
 
 identifier-chars = ALPHA / DIGIT /
-                   "-" / "_" / "'" / "," / ";" / SP
+                   "-" / "_" / "'" / "," / ";" / SP /
+                   "." / "[" / "]" / "(" / ")" / "<" / ">" / "/"
                   ; All letters and digits and
                   ; some (a bit arbitrary) chars
 
