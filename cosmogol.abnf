@@ -65,8 +65,8 @@ identifier-chars = ALPHA / DIGIT /
                   ; All letters and digits and
                   ; some (a bit arbitrary) chars
 
-comment        =  "#" *(WSP / VCHAR) CRLF
+comment = "#" *(WSP / VCHAR) CRLF
 
-comment-nl           =  comment / CRLF
+comment-nl = comment / CRLF
 
-comment-wsp          =  *(WSP / comment-nl)
+comment-wsp = *(WSP / comment-nl)
