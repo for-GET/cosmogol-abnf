@@ -20,11 +20,8 @@ name = quoted-name / regular-identifier
 
 quoted-name = DQUOTE 1*(identifier-chars) DQUOTE
 
-; TODO: this grammar allows identifiers like foo----bar
-; (several dashes). Do we really want it?
 regular-identifier =
-            ALPHA /
-            (ALPHA *(ALPHA / DIGIT / "_" / "-") (ALPHA / DIGIT))
+            (ALPHA / DIGIT) *(["_" / "-"] (ALPHA / DIGIT))
 
 transition = current-states colon
              messages arrow next-state
