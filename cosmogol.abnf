@@ -53,8 +53,8 @@ transition = current-states colon
 ; ALTERNATIVE: allow more than one action, comma-separated
 ;  Marc Petit-Huguenin <marc@8x8.com>
 
-current-states = name *(comma name)
-messages = name *(comma name)
+current-states = names
+messages = names
 next-state = name
 action = name
 
