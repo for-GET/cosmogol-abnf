@@ -24,7 +24,7 @@ quoted-name = DQUOTE 1*(identifier-chars) DQUOTE
 ; (several dashes). Do we really want it?
 regular-identifier =
             ALPHA /
-            (ALPHA *(ALPHA / DIGIT / "-") (ALPHA / DIGIT))
+            (ALPHA *(ALPHA / DIGIT / "_" / "-") (ALPHA / DIGIT))
 
 transition = current-states colon
              messages arrow next-state
