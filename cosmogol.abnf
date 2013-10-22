@@ -1,12 +1,11 @@
-state-machine = 1*(statement / (*comment-wsp))
+state-machine = *(comment-nl) statement 1*(statement / comment_nl)
 
-statement = (declaration / transition / assignment)
-            *comment-wsp ";" *comment-wsp
+statement = (declaration / transition / assignment) CRLFWSP ";" CRLFWSP
 
-colon = *comment-wsp ":" *comment-wsp
-comma = *comment-wsp "," *comment-wsp
-equal = *comment-wsp "=" *comment-wsp
-arrow = *comment-wsp "->" *comment-wsp
+colon = CRLFWSP ":" CRLFWSP
+comma = CRLFWSP "," CRLFWSP
+equal = CRLFWSP "=" CRLFWSP
+arrow = CRLFWSP "->" CRLFWSP
 
 declaration = names colon value
 ; ALTERNATIVE: indicate the possible values in the grammar:
@@ -65,8 +64,8 @@ identifier-chars = ALPHA / DIGIT /
                   ; All letters and digits and
                   ; some (a bit arbitrary) chars
 
-comment = "#" *(WSP / VCHAR) CRLF
+comment = "#" *(WSP / VCHAR) [CR] LF
 
-comment-nl = comment / CRLF
+comment-nl = comment / [CR] LF
 
-comment-wsp = *(WSP / comment-nl)
+CRLFWSP = *([CR] LF) *WSP
