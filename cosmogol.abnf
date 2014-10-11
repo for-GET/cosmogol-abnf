@@ -2,7 +2,7 @@ state-machine = *(comment-nl) statement 1*(statement / comment_nl)
 
 statement = (declaration / transition / assignment) semicolon
 
-declaration = names colon value
+declaration = coordnames colon "state" / names colon value
 ; ALTERNATIVE: indicate the possible values in the grammar:
 ; declaration = names colon type
 ; type = "state" / "message" / "action"
