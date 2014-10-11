@@ -57,7 +57,7 @@ dir = vertical_dir [horizontal_dir] / [vertical_dir] horizontal_dir
 horizontal_dir = "left" / "right"
 vertical_dir = "top" / "bottom"
 coordnames = coordname *(comma coordname)
-coordname = name [":" coord]
+coordname = name ":" coord / name
 coord = 1*ALPHA 1*DIGIT
 
 semicolon = CRLFWSP ";" CRLFWSP
