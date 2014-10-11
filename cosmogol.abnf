@@ -52,7 +52,10 @@ identifier-chars = ALPHA / DIGIT /
                   ; All letters and digits and
                   ; some (a bit arbitrary) chars
 
-coords = coord *(comma coord)
+dircoords = [dir] coord *(comma coord) [dir]
+dir = vertical_dir [horizontal_dir] / [vertical_dir] horizontal_dir
+horizontal_dir = "left" / "right"
+vertical_dir = "top" / "bottom"
 coordnames = coordname *(comma coordname)
 coordname = name [":" coord]
 coord = 1*ALPHA 1*DIGIT
@@ -61,7 +64,7 @@ semicolon = CRLFWSP ";" CRLFWSP
 colon = CRLFWSP ":" CRLFWSP
 comma = CRLFWSP "," CRLFWSP
 equal = CRLFWSP "=" CRLFWSP
-arrow = CRLFWSP "-" [coords] ">" CRLFWSP
+arrow = CRLFWSP "-" [dircoords "-"] ">" CRLFWSP
 
 comment = "#" *(WSP / VCHAR) [CR] LF
 comment-nl = comment / [CR] LF
