@@ -1,11 +1,6 @@
 state-machine = *(comment-nl) statement 1*(statement / comment_nl)
 
-statement = (declaration / transition / assignment) CRLFWSP ";" CRLFWSP
-
-colon = CRLFWSP ":" CRLFWSP
-comma = CRLFWSP "," CRLFWSP
-equal = CRLFWSP "=" CRLFWSP
-arrow = CRLFWSP "->" CRLFWSP
+statement = (declaration / transition / assignment) semicolon
 
 declaration = names colon value
 ; ALTERNATIVE: indicate the possible values in the grammar:
@@ -13,15 +8,6 @@ declaration = names colon value
 ; type = "state" / "message" / "action"
 
 assignment = name equal value
-
-names = name *(comma name)
-
-name = quoted-name / regular-identifier
-
-quoted-name = DQUOTE 1*(identifier-chars) DQUOTE
-
-regular-identifier =
-            (ALPHA / DIGIT) *(["_" / "-"] (ALPHA / DIGIT))
 
 transition = current-states colon
              messages arrow next-state
@@ -53,17 +39,31 @@ current-states = names
 messages = names
 next-state = name
 action = name
+value = name
 
-value = regular-identifier / quoted-name
-
+names = name *(comma name)
+name = quoted-name / regular-identifier
+quoted-name = DQUOTE 1*(identifier-chars) DQUOTE
+regular-identifier =
+            (ALPHA / DIGIT) *(["_" / "-"] (ALPHA / DIGIT))
 identifier-chars = ALPHA / DIGIT /
                    "-" / "_" / "'" / "," / ";" / SP /
                    "." / "[" / "]" / "(" / ")" / "<" / ">" / "/"
                   ; All letters and digits and
                   ; some (a bit arbitrary) chars
 
-comment = "#" *(WSP / VCHAR) [CR] LF
+coords = coord *(comma coord)
+coordnames = coordname *(comma coordname)
+coordname = name [":" coord]
+coord = 1*ALPHA 1*DIGIT
 
+semicolon = CRLFWSP ";" CRLFWSP
+colon = CRLFWSP ":" CRLFWSP
+comma = CRLFWSP "," CRLFWSP
+equal = CRLFWSP "=" CRLFWSP
+arrow = CRLFWSP "-" [coords] ">" CRLFWSP
+
+comment = "#" *(WSP / VCHAR) [CR] LF
 comment-nl = comment / [CR] LF
 
 CRLFWSP = *([CR] LF) *WSP
