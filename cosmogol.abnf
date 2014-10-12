@@ -54,7 +54,7 @@ identifier-chars = ALPHA / DIGIT /
 
 coords = coord *(comma coord)
 coordnames = coordname *(comma coordname)
-coordname = name ":" coord / name
+coordname = name ":" coord ":" coord / name ":" coord / name
 coord = 1*ALPHA 1*DIGIT
 
 semicolon = CRLFWSP ";" CRLFWSP
